@@ -14,11 +14,20 @@ page.
 1. Download `Zunisper-<version>-macos-aarch64.zip` from the latest release.
 2. Unzip — you get `Zunisper.app`.
 3. Move it to `/Applications` (or wherever you keep apps).
-4. The first launch is blocked by macOS Gatekeeper because the build is not
-   yet code-signed/notarized. To open it the first time:
-   - Right-click `Zunisper.app` → **Open** → confirm the "unidentified
-     developer" dialog.
-   - From then on, double-click works normally.
+4. **Important — clear macOS quarantine first.** Because the build is not
+   yet code-signed/notarized, macOS Gatekeeper marks anything you download
+   as "damaged" and refuses to open it. In Terminal, run:
+
+   ```bash
+   xattr -cr /Applications/Zunisper.app
+   ```
+
+   That removes the `com.apple.quarantine` attribute Gatekeeper objects
+   to. After that, double-click works normally.
+
+   *(If you put the app somewhere other than `/Applications`, replace the
+   path. The "right-click → Open" trick of older macOS versions does not
+   work here — recent macOS shows "is damaged" with no bypass button.)*
 5. The first time you record, macOS will ask for microphone permission.
    Grant it — without it, transcription will return silence.
 
